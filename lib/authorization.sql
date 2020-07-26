@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 24, 2020 at 07:15 PM
+-- Generation Time: Jul 26, 2020 at 04:39 PM
 -- Server version: 5.7.30-0ubuntu0.18.04.1
 -- PHP Version: 7.3.20-1+ubuntu18.04.1+deb.sury.org+1
 
@@ -34,8 +34,14 @@ CREATE TABLE `user` (
   `mail_reg` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
   `last_act` int(11) NOT NULL,
-  `reg_date` int(11) NOT NULL
+  `reg_date` int(11) NOT NULL,
+  `rights` int(11) NOT NULL DEFAULT '0',
+  `full_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
 
 --
 -- Indexes for dumped tables
@@ -55,7 +61,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
