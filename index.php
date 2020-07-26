@@ -8,15 +8,12 @@ ini_set('display_startup_errors', 1);
 include ('lib/connect.php'); // Подключаемся к БД
 include ('lib/function_global.php'); // Подключаем файл с глобальными функциями
 
-// Если передана переменная action, «разавторизируем» пользователя
-if ($_GET['action'] == "out") {
-    out();
-}
-
 // Проверяем, авторизирован юзер или нет
 if (is_authorized($db)) {
     $user_id = $_SESSION['id']; // Если юзер авторизирован, присвоим переменной $user_id его id
     $admin = is_admin($db, $user_id); // Определяем, админ ли юзер
+    // Редирект на личный кабинет
+    header('Location: http://localhost/authorization/personal-account');
 } else {
     // Если пользователь не авторизирован, то проверим, была ли нажата кнопка входа на сайт
     if (isset($_POST['log_in'])) {
@@ -25,7 +22,9 @@ if (is_authorized($db)) {
             // Если нет ошибок, авторизируем юзера
             $user_id = $_SESSION['id'];
             $admin = is_admin($db, $user_id);
+            // Редирект на личный кабинет
+            header('Location: http://localhost/authorization/personal-account');
         }
     }
+    include('template/main.php'); // Подключаем файл с формой
 }
-include('template/main.php'); // Подключаем файл с формой

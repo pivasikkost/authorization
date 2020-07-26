@@ -18,7 +18,10 @@ function registrationCorrect($db)
   if ($_POST['mail'] == "") {
       $errors[] = "пусто поле email";
   }
-  if ($_POST['license'] != "ok") {
+  if ($_POST['full_name'] == "") {
+      $errors[] = "пусто поле ФИО";
+  }
+  if ($_POST['agreement'] != "ok") {
       $errors[] = "не принято пользовательское соглашение";
   }
   if (!preg_match('/@/', $_POST['mail'])) {
@@ -40,6 +43,37 @@ function registrationCorrect($db)
   }
 
   return $errors; 
+}
+
+/*
+ * @return array Empty if validation correct
+ */
+function updateCorrect($db)
+{
+    $errors = [];
+
+    if ($_POST['full_name'] == "") {
+        $errors[] = "пусто поле ФИО";
+    }
+    if (empty($_POST['old_password'])) {
+        $errors[] = "пусто поле старый пароль";
+    } else {
+        $rez = mysqli_query($db, "SELECT * FROM user WHERE id='{$_SESSION['id']}'");
+        $row = mysqli_fetch_assoc($rez);
+        $old_password = $row['password'];
+        $current_password = md5(md5($_POST['old_password']) . $row['salt']);
+        if ($current_password !== $old_password) {
+            $errors[] = "старый пароль введён неверно";
+        }
+    }
+    if ($_POST['new_password'] == "") {
+        $errors[] = "пусто поле новый пароль";
+    }
+    if (strlen($_POST['new_password']) < 5) {
+        $errors[] = "длинна нового пароля менее 5 символов";
+    }
+
+    return $errors;
 }
 
 /*

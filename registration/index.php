@@ -27,13 +27,14 @@ if (isset($_SESSION['id'])
             $login = htmlspecialchars($_POST['login']);
             $password = $_POST['password'];
             $mail = htmlspecialchars($_POST['mail']);
+            $full_name = htmlspecialchars($_POST['full_name']);
             $salt = mt_rand(100, 999);
             $tm = time();
             $password = md5(md5($password) . $salt);
             // Пишем данные в БД и авторизовываем пользователя
             if (mysqli_query($db, "
-                INSERT INTO user (login, password, salt, mail_reg, mail, reg_date, last_act) 
-                VALUES ('" . $login . "', '" . $password . "', '" . $salt . "', '" . $mail . "', '" . $mail . "', '" . $tm."', '" . $tm . "')
+                INSERT INTO user (login, password, salt, mail_reg, mail, reg_date, last_act, full_name) 
+                VALUES ('" . $login . "', '" . $password . "', '" . $salt . "', '" . $mail . "', '" . $mail . "', '" . $tm . "', '" . $tm . "', '" . $full_name . "')
             ")) {
                 setcookie ("login", $login, time() + 60*60*12, '/'); // на 12 часов
                 setcookie ("password", md5($login.$password), time() + 60*60*12, '/'); // на 12 часов
