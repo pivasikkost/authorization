@@ -1,6 +1,4 @@
-<?php if (!empty($regged)) : ?>
-  Вы успешно зарегистрировались! <br />
-<?php elseif (!empty($errors)) : ?>
+<?php if (!empty($errors)) : ?>
   <?php $errors1 = implode('<br />', $errors); ?>
   Ошибка валидации <br />
   <?= $errors1 ?>

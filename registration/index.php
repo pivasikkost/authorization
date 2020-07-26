@@ -35,14 +35,13 @@ if (isset($_SESSION['id'])
                 INSERT INTO user (login, password, salt, mail_reg, mail, reg_date, last_act) 
                 VALUES ('" . $login . "', '" . $password . "', '" . $salt . "', '" . $mail . "', '" . $mail . "', '" . $tm."', '" . $tm . "')
             ")) {
-                setcookie ("login", $login, time() + 43200, '/'); // на 12 часов
-                setcookie ("password", md5($login.$password), time() + 43200, '/'); // на 12 часов
+                setcookie ("login", $login, time() + 60*60*12, '/'); // на 12 часов
+                setcookie ("password", md5($login.$password), time() + 60*60*12, '/'); // на 12 часов
                 $rez = mysqli_query($db, "SELECT * FROM user WHERE login = " . $login);
                 $row = mysqli_fetch_assoc($rez);
                 $_SESSION['id'] = $row['id'];
-                $regged = true;
-                // Подключаем шаблон
-                include ("template/registration.php"); 
+                // Редирект на главную
+                header('Location: http://localhost/authorization/');
             }
         } else {
             // Подключаем шаблон в случае некорректности данных
